@@ -32,7 +32,7 @@ if __name__ == "__main__":
         '--file_path', help='Path to the Excel file', default=file_path)
     parser.add_argument('--destination_path', help='Path to the destination folder',
                         nargs="?",
-                        default="/data/project/2023_10/sentiment/weekly/")
+                        default="/data/project/2024/sentiment/weekly/")
 
     # 解析命令行参数
     args = parser.parse_args()
