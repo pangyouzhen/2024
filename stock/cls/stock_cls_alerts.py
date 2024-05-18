@@ -1,5 +1,6 @@
 import json
 from datetime import datetime,timedelta
+from stock.utils.date_utils import get_time_offset
 
 import pandas as pd
 import requests
@@ -11,6 +12,7 @@ https://www.cls.cn/searchPage?keyword=%E5%BF%AB%E8%AE%AF&type=all
 """
 
 cls_url = "https://www.cls.cn/api/sw?app=CailianpressWeb&os=web&sv=7.5.5"
+get_time_offset = get_time_offset()
 
 cls_headers = {
     "Host": "www.cls.cn",
@@ -64,9 +66,10 @@ def stock_zh_a_roll_cls(td=2) -> pd.DataFrame:
     df = pd.DataFrame(roll_data)
     df = df[["ctime","title","brief"]]
     df["ctime"] = df["ctime"].apply(datetime.fromtimestamp)
+    # 默认东八区
+    df["ctime"] = df["ctime"] + timedelta(hours=8-get_time_offset)
     df = df[df["ctime"] > today_start]
     df.columns = ["时间","标题","简讯"]
-    # TODO
     # 线上跑的和线下跑的时区(东8区)不一致，得到的csv文件默认会从0到9点数据
     return df
 
