@@ -4,9 +4,10 @@ from typing import Optional
 
 import requests
 from bs4 import BeautifulSoup
-
-from stock.cls.stock_cls_alerts import cls_url, cls_headers
 from loguru import logger
+
+from stock.cls.stock_cls_alerts import cls_headers, cls_url
+
 
 def stock_zh_a_zt_analyse_cls(date: Optional[str] = None, img_path: str = "./img"):
     """
@@ -38,6 +39,7 @@ def stock_zh_a_zt_analyse_cls(date: Optional[str] = None, img_path: str = "./img
 
     def save_img(schema_id: str, img_path, input_date) -> None:
         url = "http://www.cls.cn/detail/%s" % schema_id
+        print(url)
         response = requests.request("GET", url, headers=cls_headers)
         page = response.text
         pagesoup = BeautifulSoup(page, "lxml")
@@ -47,6 +49,7 @@ def stock_zh_a_zt_analyse_cls(date: Optional[str] = None, img_path: str = "./img
                 name="img", attrs={"src": re.compile(r"^https://img")}
             )
         ]
+        print(len(links))
         if len(links) == 1:
             src_link = links[0].get("src")
             url = src_link.split("?")[0]
