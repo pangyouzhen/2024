@@ -50,13 +50,13 @@ def stock_zh_a_zt_analyse_cls(date: Optional[str] = None, img_path: str = "./img
             )
         ]
         print(len(links))
-        if len(links) == 1:
-            src_link = links[0].get("src")
+        for ind,link in enumerate(links):
+            src_link = link.get("src")
             url = src_link.split("?")[0]
             html = requests.get(url)
             img_name = str(input_date.date())
             print(img_name)
-            with open("%s/%s_zt_analyse.png" % (img_path, img_name), "wb") as file:
+            with open("%s/%s_zt_analyse_%s.png" % (img_path, img_name,ind), "wb") as file:
                 file.write(html.content)
             print("获取今日涨停分析成功")
 
@@ -74,5 +74,5 @@ def stock_zh_a_zt_analyse_cls(date: Optional[str] = None, img_path: str = "./img
         return True
 
 # if __name__ == "__main__":
-    # stock_zh_a_zt_analyse_cls = stock_zh_a_zt_analyse_cls(date="20230216")
-    # print(stock_zh_a_zt_analyse_cls)
+#     stock_zh_a_zt_analyse_cls = stock_zh_a_zt_analyse_cls(date="20240704")
+#     print(stock_zh_a_zt_analyse_cls)
