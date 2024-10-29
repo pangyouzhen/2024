@@ -191,8 +191,8 @@ def main(*args, **kwargs):
         zt_analyse_df(date = kwargs["date"])
         time.sleep(5)
         
-        get_stock_zh_a_roll_cls(date=kwargs["date"])
-        time.sleep(5)
+        # get_stock_zh_a_roll_cls(date=kwargs["date"])
+        # time.sleep(5)
 
         merge_data(date = kwargs["date"])
     else:
@@ -207,6 +207,7 @@ FUNCTION_MAP = {
     "raw": get_raw_data,
     "all": main,
     "sentiment": merge_data,
+    # "roll_cls":get_stock_zh_a_roll_cls,
     # "cls": alerts_cls,
     "new":get_new,
 }
